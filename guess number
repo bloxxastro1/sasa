@@ -1,0 +1,9 @@
+import random
+
+x = random.randint(1, 101)
+num1 = int(input("choose a number between 1 and 100: "))
+if int(x) >= num1:
+    print("try a smaller number")
+elif int(x) <= num1:
+    print("try a bigger number")
+
