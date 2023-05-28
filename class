@@ -1,0 +1,46 @@
+class point3d:
+    def __init__(self, x, y, z):
+        self.x = x
+        self.y = y
+        self.z = z
+mypoint = point3d(1, 2, 3)
+
+print(mypoint)
+
+class rectangle:
+    def __init__(self, x, y):
+        self.x = x
+        self.y = y
+    def area (self):
+       return self.x*self.y
+    def perimeter(self):
+       return 2*(self.x + self.y)
+somedude = rectangle (4, 3)
+print(somedude.area())
+
+class circle:
+    def __init__(self, r):
+        self.r = r
+    def area(self):
+        return self.r**2 *22/7
+    def perimter(self):
+        return self.r*2*22/7
+someotherdude1 = circle(5)
+someotherdude1.area()
+print(someotherdude1.area())
+someotherdude2 = circle(5)
+someotherdude2.perimter()
+print(someotherdude2.perimter())
+
+class bank:
+    def __init__(self, account,  deposit, withdrawls):
+        self.account = account
+        self.deposit = deposit
+        self.withdrawls = withdrawls
+    def withdrawls1 (self):
+         return self.account - self.withdrawls
+    def deposit1(self):
+        return self.account + self.deposit
+bank1 = bank (2000, 200, 400)
+x = bank1.withdrawls1
+print(bank1.withdrawls1())
