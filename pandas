@@ -1,0 +1,23 @@
+import pandas as pd
+import numpy as np
+exam_data = {'name':['Anastasia', 'Dima', 'Katherine', 'James', 'Emily', 'Michael', 'Matthew', 'Laura', 'Kevin', 'Jonas'],
+'score':[12.5, 9, 16.5, np.nan, 9, 20, 14.5, np.nan, 8, 19],
+'attempts':[1, 3, 2, 3, 2, 3, 1, 1, 2, 1],
+'qualify':['yes', 'no', 'yes', 'no', 'no', 'yes', 'yes', 'no', 'no', 'yes']}
+index =['a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j']
+
+df = pd.DataFrame(exam_data, index = index, columns = ['name', 'score', 'attempts', 'qualify'],)
+print(df.head(3))
+df1 = df.dropna()
+print(df1)
+print(df1[['name','score']])
+new_row = {'name': 'Suresh', 'score': 15.5, 'attempts': 1, 'qualify': "yes"}
+df2 = df1._append(new_row, ignore_index=True)
+print(df2)
+index2 = ['a', 'b', 'c', 'e', 'f', 'g', 'h', 'j','k']
+df2.index=index2
+print (df2)
+df2.__delitem__('attempts')
+print(df2)
+df3 = df2.where(df2['score'] >= 10, "success",)
+df3.to_csv('my data.csv')
