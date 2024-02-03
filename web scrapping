@@ -1,0 +1,63 @@
+import requests
+from bs4 import BeautifulSoup
+
+def get_html_content(url):
+    response = requests.get(url)
+    if response.status_code == 200:
+        return response.text
+    else:
+        raise Exception(f"Failed to retrieve content. Status code: {response.status_code}")
+
+def extract_article_title(html_content):
+    soup = BeautifulSoup(html_content, 'html.parser')
+    title_tag = soup.find('title')
+    return title_tag.text if title_tag else None
+
+def extract_article_text(html_content):
+    soup = BeautifulSoup(html_content, 'html.parser')
+    article_text = {}
+    headings = soup.find_all(['h1', 'h2', 'h3', 'h4', 'h5', 'h6'])
+    
+    for heading in headings:
+        heading_text = heading.text.strip()
+        paragraphs = []
+        next_element = heading.find_next()
+        
+        while next_element and next_element.name not in ['h1', 'h2', 'h3', 'h4', 'h5', 'h6']:
+            if next_element.name == 'p':
+                paragraphs.append(next_element.text.strip())
+            next_element = next_element.find_next()
+        
+        article_text[heading_text] = paragraphs
+    
+    return article_text
+
+def collect_redirect_links(html_content):
+    soup = BeautifulSoup(html_content, 'html.parser')
+    redirect_links = []
+
+    for link in soup.find_all('a', href=True):
+        href = link['href']
+        if href.startswith('/wiki/'):
+            redirect_links.append(href)
+
+    return redirect_links
+
+def process_wikipedia_page(wikipedia_link):
+    html_content = get_html_content(wikipedia_link)
+    title = extract_article_title(html_content)
+    article_text = extract_article_text(html_content)
+    redirect_links = collect_redirect_links(html_content)
+
+    result = {
+        'title': title,
+        'article_text': article_text,
+        'redirect_links': redirect_links
+    }
+
+    return result
+
+# Example usage
+wikipedia_page_link = 'https://en.wikipedia.org/wiki/Python_(programming_language)'
+result = process_wikipedia_page(wikipedia_page_link)
+print(result)
