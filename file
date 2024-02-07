@@ -1,0 +1,15 @@
+with open("python.txt", "r") as file:
+    f = file.read()
+    print(f)
+    f1 = f.split("." or "?" or "\n")
+    for line in f1:
+        print(line, end="\n")
+    f2 = slice(f1)
+    print(f1[::-1])
+
+
+with open(input("file name?")) as file_name:
+    txt = file_name.read()
+    words = txt.split()
+    print(len(words))
+    
