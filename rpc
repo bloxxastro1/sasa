@@ -1,0 +1,25 @@
+import random
+
+
+def rpc(user_choice):
+    rpc_list = ["rock", "paper", "scissors"]
+    x = random.choice(rpc_list)
+    print(x)
+    if user_choice == "rock" and x == "paper":
+        print("u lost")
+    elif user_choice == "rock" and x == "scissors":
+        print("u won")
+    elif user_choice == "paper" and x == "rock":
+        print("u won")
+    elif user_choice == "paper" and x == "scissors":
+        print("u lost")
+    elif user_choice == "scissors" and x == "paper":
+        print("u won")
+    elif user_choice == "scissors" and x == "rock":
+        print("u lost")
+    else:
+        print("stalemate")
+
+
+rpc(input("choose rock, paper or scissors: "))
+
