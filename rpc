@@ -1,7 +1,9 @@
 import random
+import tkinter
 
 
-def rpc(user_choice):
+def rpc():
+    user_choice = choice_var.get()
     rpc_list = ["rock", "paper", "scissors"]
     x = random.choice(rpc_list)
     print(x)
@@ -21,5 +23,14 @@ def rpc(user_choice):
         print("stalemate")
 
 
-rpc(input("choose rock, paper or scissors: "))
-
+root = tkinter.Tk()
+root.geometry("800x500")
+root.title("RockPaperScissors")
+choice_var = tkinter.StringVar(root)
+choice_var.set("rock")
+choices = ["rock", "paper", "scissors"]
+dropdown = tkinter.OptionMenu(root, choice_var, *choices)
+dropdown.pack(padx=10, pady=10)
+btn = tkinter.Button(root, text="Play", command=rpc)
+btn.pack(padx=10, pady=10)
+root.mainloop()
